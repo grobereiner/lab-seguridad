@@ -1,0 +1,4 @@
+{
+    "llave": "certs/key.pem",
+    "certificado": "certs/cert.pem"
+}
