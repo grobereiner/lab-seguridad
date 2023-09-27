@@ -18,5 +18,6 @@ func main() {
 	util.DB_Connection = Connect_Database()
 
 	server := Setup_Server()
-	server.Logger.Fatal(server.Start(":1323"))
+
+	server.Logger.Fatal(server.StartTLS(":443", "./certs/cert.pem", "./certs/key.pem"))
 }
