@@ -4,7 +4,10 @@ import (
 	"lab-seguridad/models"
 	"lab-seguridad/util"
 	"net/http"
+	"os"
+	"time"
 
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v4"
 )
 
@@ -24,5 +27,20 @@ func Login(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "bad username or password")
 	}
 
-	return c.String(http.StatusAccepted, "success")
+	claims := &models.UserJWT{
+		Username: user_body.Username,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 72)),
+		},
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	t, err := token.SignedString([]byte(os.Getenv("jwt")))
+
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(http.StatusOK, echo.Map{
+		"token": t,
+	})
 }
