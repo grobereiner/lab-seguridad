@@ -1,6 +1,7 @@
 from flask import Flask, request
 import pandas
 
+
 app = Flask(__name__)
 
 app.config['DEBUG'] = True
