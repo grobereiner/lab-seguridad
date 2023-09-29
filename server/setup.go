@@ -17,7 +17,7 @@ func Setup_Server() *echo.Echo {
 
     e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
       AllowOrigins: []string{"http://localhost:5173"},
-      AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+      AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderAuthorization},
     })) 
 
 	e.Use(middleware.Logger())
